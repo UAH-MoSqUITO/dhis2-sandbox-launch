@@ -38,9 +38,42 @@ imageid_param = t.add_parameter(
 dhis2_instance = t.add_resource(
     ec2.Instance(
         "DHIS2Instance",
-        InstanceType="t3.medium",
+
+        # AdditionalInfo="",
+        # Affinity="",
+        # AvailabilityZone="",
+        # BlockDeviceMappings=[],
+        # CreditSpecification={},
+        # DisableApiTermination=False,
+        # EbsOptimized=False,
+        # ElasticGpuSpecifications=[],
+        # ElasticInferenceAccelerators=[],
+        # HostId="",
+        # IamInstanceProfile="",
         ImageId=Ref(imageid_param),
+        # InstanceInitiatedShutdownBehavior="",
+        InstanceType="t3.medium",
+        # Ipv6AddressCount=0,
+        # Ipv6Addresses=[],
+        # KernelId="",
         KeyName=Ref(keyname_param),
+        # LaunchTemplate={},
+        # LicenseSpecifications=[],
+        # Monitoring=False,
+        # NetworkInterfaces=[],
+        # PlacementGroupName="",
+        # PrivateIpAddress="",
+        # RamdiskId="",
+        # SecurityGroupIds=[],
+        # SecurityGroups=[],
+        # SourceDestCheck=False,
+        # SsmAssociations=[],
+        # SubnetId="",
+        # Tags=[],
+        # Tenancy="",
+        # UserData="",
+        # Volumes=[],
+
     )
 )
 
