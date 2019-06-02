@@ -42,7 +42,16 @@ dhis2_instance = t.add_resource(
         # AdditionalInfo="",
         # Affinity="",
         # AvailabilityZone="",
-        # BlockDeviceMappings=[],
+        BlockDeviceMappings=[
+            ec2.BlockDeviceMapping(
+                "BlockDeviceMapping",
+                DeviceName="/dev/sda1",
+                Ebs=ec2.EBSBlockDevice(
+                    "BootVolume",
+                    VolumeSize="16",
+                ),
+            ),
+        ],
         # CreditSpecification={},
         # DisableApiTermination=False,
         # EbsOptimized=False,
