@@ -5,7 +5,7 @@ from secrets import token_bytes
 import troposphere.ec2 as ec2
 import troposphere.ssm as ssm
 from troposphere import (Base64, FindInMap, GetAtt, Output, Parameter, Ref,
-                         Template)
+                         Tags, Template)
 
 
 def nextid():
@@ -78,7 +78,9 @@ dhis2_instance = t.add_resource(
         # SourceDestCheck=False,
         # SsmAssociations=[],
         # SubnetId="",
-        # Tags=[],
+        Tags=Tags(
+            Name="dhis2-sandbox",
+        ),
         # Tenancy="",
         # UserData="",
         # Volumes=[],
