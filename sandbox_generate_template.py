@@ -79,4 +79,5 @@ t.add_output(
     ]
 )
 
-print(t.to_json())
+if __name__ == '__main__':
+    print(t.to_json())

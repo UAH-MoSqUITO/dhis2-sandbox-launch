@@ -10,7 +10,7 @@ done
     set -x
     aws cloudformation create-stack \
         --stack-name dhis2-sandbox \
-        --template-body "$(python3 assembletemplate.py | jq -S -c .)" \
+        --template-body "$(python3 sandbox_generate_template.py | jq -S -c .)" \
         --parameters \
             ParameterKey=KeyName,ParameterValue="$KeyName" \
             ParameterKey=ImageId,ParameterValue="$ImageId"
