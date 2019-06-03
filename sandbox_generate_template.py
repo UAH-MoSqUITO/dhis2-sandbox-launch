@@ -1,4 +1,3 @@
-import string
 from base64 import b32encode
 from secrets import token_bytes
 
@@ -6,8 +5,6 @@ import troposphere.ec2 as ec2
 import troposphere.ssm as ssm
 from troposphere import (Base64, FindInMap, GetAtt, Output, Parameter, Ref,
                          Tags, Template)
-
-NAME = "dhis2-sandbox"
 
 
 def nextid():
@@ -19,7 +16,19 @@ def nextid():
     return ni
 
 
-t = Template()
+class AdHocTemplate(Template):
+    def r(self, resource_type_class, **kwargs):
+        title = resource_type_class.__name__.lower()
+        resource = resource_type_class(title, **kwargs)
+        return self.add_resource(resource)
+
+
+NAME = 'dhis2-sandbox'
+SECURITY_GROUP_NAME = NAME
+INSTANCE_TAG_NAME = NAME
+
+
+t = AdHocTemplate()
 
 keyname_param = t.add_parameter(
     Parameter(
@@ -36,6 +45,12 @@ imageid_param = t.add_parameter(
         Type="AWS::EC2::Image::Id",
     )
 )
+
+elastic_ip = t.r(
+    ec2.EIP,
+    Domain='vpc',
+)
+
 
 dhis2_instance = t.add_resource(
     ec2.Instance(
@@ -77,13 +92,13 @@ dhis2_instance = t.add_resource(
         # RamdiskId="",
         # SecurityGroupIds=[],
         SecurityGroups=[
-            NAME,
+            SECURITY_GROUP_NAME,
         ],
         # SourceDestCheck=False,
         # SsmAssociations=[],
         # SubnetId="",
         Tags=Tags(
-            Name=NAME,
+            Name=INSTANCE_TAG_NAME,
         ),
         # Tenancy="",
         # UserData="",
