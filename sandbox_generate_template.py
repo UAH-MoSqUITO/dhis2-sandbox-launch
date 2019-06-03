@@ -7,6 +7,8 @@ import troposphere.ssm as ssm
 from troposphere import (Base64, FindInMap, GetAtt, Output, Parameter, Ref,
                          Tags, Template)
 
+NAME = "dhis2-sandbox"
+
 
 def nextid():
     tb = token_bytes(10)
@@ -74,12 +76,14 @@ dhis2_instance = t.add_resource(
         # PrivateIpAddress="",
         # RamdiskId="",
         # SecurityGroupIds=[],
-        # SecurityGroups=[],
+        SecurityGroups=[
+            NAME,
+        ],
         # SourceDestCheck=False,
         # SsmAssociations=[],
         # SubnetId="",
         Tags=Tags(
-            Name="dhis2-sandbox",
+            Name=NAME,
         ),
         # Tenancy="",
         # UserData="",
