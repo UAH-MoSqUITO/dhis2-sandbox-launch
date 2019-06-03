@@ -14,6 +14,7 @@ python3 sandbox_generate_template.py | jq -S . > "$template_file"
 (
     set -x
     aws cloudformation deploy \
+        --no-execute-changeset \
         --stack-name "$stack_name" \
         --template-file "$template_file" \
         --parameter-overrides \
