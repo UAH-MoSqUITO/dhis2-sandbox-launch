@@ -46,11 +46,6 @@ imageid_param = t.add_parameter(
     )
 )
 
-elastic_ip = t.r(
-    ec2.EIP,
-    Domain='vpc',
-)
-
 
 dhis2_instance = t.add_resource(
     ec2.Instance(
@@ -107,6 +102,11 @@ dhis2_instance = t.add_resource(
     )
 )
 
+elastic_ip = t.r(
+    ec2.EIP,
+    InstanceId=Ref(dhis2_instance),
+)
+
 t.add_output(
     [
         Output(
@@ -138,6 +138,11 @@ t.add_output(
             "PrivateDNS",
             Description="Private DNSName of the newly created EC2 instance",
             Value=GetAtt(dhis2_instance, "PrivateDnsName"),
+        ),
+        Output(
+            "AllocationId",
+            Description="Allocation ID of the elastic IP association",
+            Value=GetAtt(elastic_ip, "AllocationId"),
         ),
     ]
 )
